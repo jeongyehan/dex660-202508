@@ -20,8 +20,8 @@
 
 ### API Instance ID:
 - prod: 20480915
-- test:
-- dev:
+- test: 20482770
+- dev: 20482761
 
 ## Commands
 - export PROJECT_HOME=/Users/yehan.jeong/Desktop/dex660-202508
