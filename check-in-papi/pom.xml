@@ -16,7 +16,6 @@
 	</parent>
 	<properties>
 		<api.layer>${api.layer.papi}</api.layer>
-		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -25,6 +24,7 @@
 		<api.groupId>ed4f7583-2285-4abc-8c9d-fc266272fa2c</api.groupId>
 		<api.artifactId>check-in-papi</api.artifactId>
 		<api.version>1.0.0</api.version>
+		<munit.version>3.4.0</munit.version>
 	</properties>
 
 	<build>
@@ -40,14 +40,37 @@
 				<!-- <version>${mule.maven.plugin.version}</version> -->
 				<extensions>true</extensions>
 			</plugin>
+			<plugin>
+				<groupId>com.mulesoft.munit.tools</groupId>
+				<artifactId>munit-maven-plugin</artifactId>
+				<!-- <version>${munit.version}</version> -->
+				<!-- <executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+							<goal>coverage-report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<coverage>
+						<runCoverage>true</runCoverage>
+						<formats>
+							<format>html</format>
+						</formats>
+					</coverage>
+				</configuration> -->
+			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
 		<dependency>
-		    <groupId>${student.deployment.ap.orgid}</groupId>
-		    <artifactId>apps-commons</artifactId>
-		    <classifier>mule-plugin</classifier>
+			<groupId>${student.deployment.ap.orgid}</groupId>
+			<artifactId>apps-commons</artifactId>
+			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
@@ -85,6 +108,26 @@
 			<artifactId>mule-tracing-module</artifactId>
 			<!-- <version>1.2.0</version> -->
 			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-runner</artifactId>
+			<!-- <version>3.4.0</version> -->
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-tools</artifactId>
+			<!-- <version>3.4.0</version> -->
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>assertions</artifactId>
+			<!-- <version>1.2.1</version> -->
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

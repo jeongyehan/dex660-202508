@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="main-suite.xml" />
+	<munit:test name="payment-approval-by-pnr-test" doc:id="6d8c3d63-0a91-45f6-8615-d7bf16fcb417" >
+		<munit:behavior >
+			<munit-tools:spy doc:name="Spy Transform Message" doc:id="94107dc7-50c1-444f-833d-c22a912e2cd7" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e79d6983-a7cd-48f0-a23f-7ab31ebb5019" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="536d5574-2269-45e3-87c9-372c8276895f" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import paymentapprovalbypnrtest::spy_assert_payload
+---
+spy_assert_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="b40ea023-05b5-4a3e-9328-33c2eac7b0a6" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import paymentapprovalbypnrtest::spy_assert_payload1
+---
+spy_assert_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Transform Message" doc:id="b16783cd-8d7f-4bd7-bc77-823a87af33ad" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4b9137db-6e22-4d2d-ac26-1955da5dabc4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="9ace1170-c6c9-4c2d-8c9e-22aa90cfd3d1" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import paymentapprovalbypnrtest::spy_assert_payload2
+---
+spy_assert_payload2::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="6fd4eaa5-c9ca-4ca1-b695-0c7bb3b5268a" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import paymentapprovalbypnrtest::spy_assert_payload3
+---
+spy_assert_payload3::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit:set-event doc:name="Set Input" doc:id="878f09ca-e746-4193-8d5c-d12da439dd8c" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://paymentapprovalbypnrtest/set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://paymentapprovalbypnrtest/set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://paymentapprovalbypnrtest/set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to payment-approval-by-pnr" doc:id="b7408dd1-fe3a-4632-abc4-6810a33d859d" name="payment-approval-by-pnr"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="101e3cd8-98b7-4109-a24a-162b7bd0b1f6" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import paymentapprovalbypnrtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="d1a53231-aee8-4175-8bf1-b247ed2bef20" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e79d6983-a7cd-48f0-a23f-7ab31ebb5019" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="33dfd9a6-53f5-40a7-9dbe-1c26dcc49663" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4b9137db-6e22-4d2d-ac26-1955da5dabc4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+</mule>

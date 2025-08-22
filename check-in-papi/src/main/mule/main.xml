@@ -6,12 +6,12 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/tracing http://www.mulesoft.org/schema/mule/tracing/current/mule-tracing.xsd">
 	<flow name="payment-approval-by-pnr" doc:id="81df03f8-4cba-4c68-b9c8-c3ece925308b" >
-		<ee:transform doc:name="Transform Message">
+		<ee:transform doc:name="Transform Message" doc:id="e79d6983-a7cd-48f0-a23f-7ab31ebb5019">
             <ee:variables>
-                <ee:set-variable variableName="PNR">attributes.uriParams.'PNR'</ee:set-variable>
+                <ee:set-variable variableName="PNR"><![CDATA[attributes.uriParams.'PNR']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<ee:transform doc:name="Transform Message">
+		<ee:transform doc:name="Transform Message" doc:id="4b9137db-6e22-4d2d-ac26-1955da5dabc4">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -34,6 +34,9 @@ output application/json
         </ee:transform>
 	</flow>
 	<flow name="check-in-by-pnr" doc:id="d90bb4a3-54d2-4dda-a431-e67ab0fe9359" >
+		<flow-ref name="check-in-flights-management" />
+		<flow-ref name="register-passenger-data" />
+		<flow-ref name="create-payment-for-bags" />
 		<ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="PNR">attributes.uriParams.'PNR'</ee:set-variable>
@@ -50,5 +53,14 @@ output application/json
             </ee:message>
         </ee:transform>
 		<tracing:set-logging-variable doc:name="Set logging variable" doc:id="221b5797-f1ed-4653-b3c0-fa21ecc29a21" variableName="PNR" value="#[vars.PNR default '']" />
+	</flow>
+	<flow name="check-in-flights-management">
+	    <logger />
+	</flow>
+	<flow name="register-passenger-data">
+	    <logger />
+	</flow>
+	<flow name="create-payment-for-bags">
+	    <logger />
 	</flow>
 </mule>

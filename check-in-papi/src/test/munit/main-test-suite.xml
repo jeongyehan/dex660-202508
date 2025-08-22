@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="main-test-suite.xml" />
+	<munit:test name="main-test-suite-payment-approval-by-pnrTest" doc:id="eecd2fb2-c03e-4161-b004-a3ff1d429418" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to payment-approval-by-pnr" doc:id="0e8cc961-c595-4871-9ac1-d88232900c19" name="payment-approval-by-pnr"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="main-test-suite-check-in-by-pnrTest" doc:id="65b0ff7f-e30f-4a75-b11e-bd21c7f55cfa" description="Test">
+			<munit:behavior>
+		    <munit-tools:mock-when processor="flow-ref">
+		        <munit-tools:with-attributes>
+		        <munit-tools:with-attribute attributeName="name" whereValue="check-in-flights-management" />
+		        </munit-tools:with-attributes>
+		        <munit-tools:then-return>
+		        <munit-tools:payload value="#[output application/json --- {}]"/>
+		        </munit-tools:then-return>
+		    </munit-tools:mock-when>
+		    <munit-tools:mock-when processor="flow-ref">
+		        <munit-tools:with-attributes>
+		    <munit-tools:with-attribute attributeName="name" whereValue="register-passenger-data" />
+		        </munit-tools:with-attributes>
+		        <munit-tools:then-return>
+		        <munit-tools:payload value="#[output application/json --- {}]"/>
+		        </munit-tools:then-return>
+		    </munit-tools:mock-when>
+		    <munit-tools:mock-when processor="flow-ref">
+		        <munit-tools:with-attributes>
+		        <munit-tools:with-attribute attributeName="name" whereValue="create-payment-for-bags" />
+		        </munit-tools:with-attributes>
+		        <munit-tools:then-return>
+		        <munit-tools:payload value="#[output application/json --- {}]"/>
+		        </munit-tools:then-return>
+		    </munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="4f7be1c7-bc57-415d-aede-cb8824f3947f" >
+				<munit:payload value="#[output application/json --- read(MunitTools::getResourceAsString('check-in-request.json'), 'application/json')]" />
+				<munit:variables >
+					<munit:variable key="PNR" value="N123" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to check-in-by-pnr" doc:id="c0bd4885-7e78-4d06-98d0-c93476b910c5" name="check-in-by-pnr"/>
+		</munit:execution>
+		<munit:validation>
+		    <munit-tools:verify-call times="1" processor="flow-ref">
+		        <munit-tools:with-attributes>
+		            <munit-tools:with-attribute attributeName="name" whereValue="check-in-flights-management" />
+		        </munit-tools:with-attributes>
+		    </munit-tools:verify-call>
+		    <munit-tools:verify-call times="1" processor="flow-ref">
+		        <munit-tools:with-attributes>
+		            <munit-tools:with-attribute attributeName="name" whereValue="register-passenger-data" />
+		        </munit-tools:with-attributes>
+		    </munit-tools:verify-call>
+		    <munit-tools:verify-call times="1" processor="flow-ref">
+		        <munit-tools:with-attributes>
+		            <munit-tools:with-attribute attributeName="name" whereValue="create-payment-for-bags" />
+		        </munit-tools:with-attributes>
+		    </munit-tools:verify-call>
+		    <munit-tools:assert-that is='#[MunitTools::equalTo({"paymentID": "PAY-1AKD7482FAB9STATKO"})]' expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+</mule>
