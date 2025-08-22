@@ -30,3 +30,11 @@
 - curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://localhost:8081/api/v1/tickets/PNR123/checkin
 - mvn clean deploy -DmuleDeploy -Dap.client_id=77b3bc1f771e494e9c06497518db40ed -Dap.client_secret=2E975487407243cFA77C4dEeC4a7f41B -Dap.ca.client_id=183222d618d9434d82ff7d2793212767 -Dap.ca.client_secret=f142B6D7af7B47F2Ab0f2e45281213c2
 - curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-nknhfc.5sc6y6-3.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
+- mvn clean deploy -Dencrypt.key=secure12345
+- mvn clean deploy -DmuleDeploy -Dap.client_id=77b3bc1f771e494e9c06497518db40ed -Dap.client_secret=2E975487407243cFA77C4dEeC4a7f41B -Dap.ca.client_id=183222d618d9434d82ff7d2793212767 -Dap.ca.client_secret=f142B6D7af7B47F2Ab0f2e45281213c2 -Dencrypt.key=secure12345 -Ddeployment.env=dev
+- mvn clean deploy -DmuleDeploy -Dap.client_id=77b3bc1f771e494e9c06497518db40ed -Dap.client_secret=2E975487407243cFA77C4dEeC4a7f41B -Dap.ca.client_id=183222d618d9434d82ff7d2793212767 -Dap.ca.client_secret=f142B6D7af7B47F2Ab0f2e45281213c2 -Dencrypt.key=secure12345 -Ddeployment.env=test
+- mvn clean deploy -DmuleDeploy -Dap.client_id=77b3bc1f771e494e9c06497518db40ed -Dap.client_secret=2E975487407243cFA77C4dEeC4a7f41B -Dap.ca.client_id=183222d618d9434d82ff7d2793212767 -Dap.ca.client_secret=f142B6D7af7B47F2Ab0f2e45281213c2 -Dencrypt.key=secure12345 -Ddeployment.env=prod -Ddeployment.suffix=
+- curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-nknhfc.5sc6y6-3.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
+- curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-test-nqd53b.5sc6y6-4.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
+- curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-dev-i862m5.5sc6y6-1.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
+    
