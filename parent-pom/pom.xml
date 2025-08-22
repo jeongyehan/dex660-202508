@@ -17,9 +17,15 @@
   </parent>
   <artifactId>solutions-parent-pom</artifactId>
   <groupId>ed4f7583-2285-4abc-8c9d-fc266272fa2c</groupId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <packaging>pom</packaging>
   <properties>
+    <api.layer.eapi>Experience</api.layer.eapi>
+    <api.layer.papi>Process</api.layer.papi>
+    <api.layer.sapi>System</api.layer.sapi>
+    <api.layer.backend>Backend</api.layer.backend>
+    <api.layer.none>None</api.layer.none>
+
     <type>custom</type>
     <deployment.env>set with -Ddeployment.env=...</deployment.env>
     <deployment.suffix>-${deployment.env}</deployment.suffix>
@@ -82,6 +88,9 @@
               <connectedAppClientSecret>${ap.ca.client_secret}</connectedAppClientSecret>
               <connectedAppGrantType>client_credentials</connectedAppGrantType>
               <properties>
+                <anypoint.platform.config.analytics.agent.enabled>true</anypoint.platform.config.analytics.agent.enabled>
+                <anypoint.platform.visualizer.displayName>${project.name}</anypoint.platform.visualizer.displayName>
+                <anypoint.platform.visualizer.layer>${api.layer}</anypoint.platform.visualizer.layer>    
                 <env>${deployment.env}</env>
                 <anypoint.platform.client_id>${ap.client_id}</anypoint.platform.client_id>
                 <anypoint.platform.client_secret>${ap.client_secret}</anypoint.platform.client_secret>

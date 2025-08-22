@@ -37,4 +37,5 @@
 - curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-nknhfc.5sc6y6-3.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
 - curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-test-nqd53b.5sc6y6-4.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
 - curl -ik -X PUT -H "Content-Type: application/json" -d "{\"lastName\":\"Smith\",\"numBags\":2}" https://check-in-papi-dev-i862m5.5sc6y6-1.usa-e2.cloudhub.io/api/v1/tickets/PNR123/checkin
-    
+- curl -ik https://localhost:8081/alive 
+- curl -ik https://localhost:8081/ready

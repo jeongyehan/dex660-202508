@@ -4,17 +4,19 @@
 
 	<groupId>ed4f7583-2285-4abc-8c9d-fc266272fa2c</groupId>
 	<artifactId>check-in-papi-app</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<packaging>mule-application</packaging>
 
 	<name>check-in-papi</name>
 	<parent>
 		<groupId>ed4f7583-2285-4abc-8c9d-fc266272fa2c</groupId>
 		<artifactId>solutions-parent-pom</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 		<relativePath>../parent-pom/pom.xml</relativePath>
 	</parent>
 	<properties>
+		<api.layer>${api.layer.papi}</api.layer>
+		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
